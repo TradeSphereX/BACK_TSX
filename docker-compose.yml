@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+
+    web:
+        build: .
+        ports:
+        - "9000:9000"
+        volumes:
+          - .:/var/www/html
+        depends_on:
+        - db
+        networks:
+        - default
+
+    db:
+      image: mysql:latest
+      container_name: tsx_db
+      environment:
+        MYSQL_ROOT_PASSWORD: kali
+        MYSQL_DATABASE: tsx
+        MYSQL_USER: kali
+        MYSQL_PASSWORD: kali
+      volumes:
+        - db_data:/var/lib/mysql
+      ports:
+        - "3306:3306"
+      networks:
+        - default
+
+    phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: tsx_phpmyadmin
+      environment:
+        PMA_HOST: db
+        PMA_PORT: 3306
+        MYSQL_ROOT_PASSWORD: kali
+      ports:
+        - "8081:80"
+      networks:
+        - default
+
+volumes:
+  db_data:
+
+networks:
+    default:

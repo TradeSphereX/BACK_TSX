@@ -65,3 +65,7 @@
 ### Symfony Patch ###
 /web/css/
 /web/js/
+
+.env.local
+.env
+.env.dev.local
